@@ -16,15 +16,16 @@ class SightAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
             'fields': (
-                'title',
-                'description_short',
-                'description_long',
+                ('title', 'placeId'),
+                'short_description',
+                'long_description',
                 ('longtitude', 'latitude'),
             )
         }),
     )
+    save_on_top = True
 
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_filter = ('sight', )
+    list_filter = ('sight__placeId', )

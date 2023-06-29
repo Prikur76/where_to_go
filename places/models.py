@@ -6,9 +6,13 @@ class Sight(models.Model):
     title = models.CharField(
         max_length=255,
         verbose_name='название')
-    description_short = models.TextField(
+    placeId = models.CharField(
+        max_length=255,
+        verbose_name='placeId'
+    )
+    short_description = models.TextField(
         verbose_name='краткое описание')
-    description_long = models.TextField(
+    long_description = models.TextField(
         verbose_name='описание')
     longtitude = models.FloatField(verbose_name='Долгота')
     latitude = models.FloatField(verbose_name='Широта')
