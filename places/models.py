@@ -23,23 +23,22 @@ class Sight(models.Model):
 
 class Image(models.Model):
     def image_directory_path(self, filename):
-        return 'images/{0}/{1}{2}'.format(
+        return 'images/{0}/{1}'.format(
             self.sight.id,
-            self.order_id,
             filename)
 
     sight = models.ForeignKey(
         Sight,
         on_delete=models.CASCADE,
-        verbose_name='место',
+        verbose_name='экскурсия',
         related_name='images'
     )
     order_id = models.PositiveIntegerField(
         verbose_name='порядок'
     )
-    image = models.ImageField(
+    upload = models.ImageField(
         upload_to=image_directory_path,
-        verbose_name='фото'
+        verbose_name='загрука фото'
         )
     class Meta:
         verbose_name = 'фото'
