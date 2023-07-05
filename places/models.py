@@ -6,13 +6,13 @@ class Sight(models.Model):
     title = models.CharField(
         max_length=255,
         verbose_name='название')
-    placeId = models.CharField(
+    place_id = models.CharField(
         max_length=255,
-        verbose_name='placeId'
+        verbose_name='ID места'
     )
-    short_description = models.TextField(
+    description_short = models.TextField(
         verbose_name='краткое описание')
-    long_description = models.TextField(
+    description_long = models.TextField(
         verbose_name='описание')
     longtitude = models.FloatField(verbose_name='Долгота')
     latitude = models.FloatField(verbose_name='Широта')
@@ -27,8 +27,8 @@ class Sight(models.Model):
 
 class Image(models.Model):
     def image_directory_path(self, filename):
-        return 'images/{0}/{1}'.format(
-            self.sight.id,
+        return '{0}/{1}'.format(
+            self.sight.placeId,
             filename)
 
     sight = models.ForeignKey(

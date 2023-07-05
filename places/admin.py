@@ -16,9 +16,9 @@ class SightAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
             'fields': (
-                ('title', 'placeId'),
-                'short_description',
-                'long_description',
+                ('title', 'place_id'),
+                'description_short',
+                'description_long',
                 ('longtitude', 'latitude'),
             )
         }),
@@ -28,4 +28,4 @@ class SightAdmin(admin.ModelAdmin):
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_filter = ('sight__placeId', )
+    list_filter = ('sight__place_id', )
