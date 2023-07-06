@@ -1,12 +1,12 @@
 from django.db import models
+from django.urls import reverse
 
 
-# Create your models here.
-class Sight(models.Model):
+class Place(models.Model):
     title = models.CharField(
         max_length=255,
         verbose_name='название')
-    place_id = models.CharField(
+    place_en = models.CharField(
         max_length=255,
         verbose_name='ID места'
     )
@@ -14,8 +14,8 @@ class Sight(models.Model):
         verbose_name='краткое описание')
     description_long = models.TextField(
         verbose_name='описание')
-    longtitude = models.FloatField(verbose_name='Долгота')
     latitude = models.FloatField(verbose_name='Широта')
+    longtitude = models.FloatField(verbose_name='Долгота')
 
     class Meta:
         verbose_name = 'экскурсия'
@@ -24,15 +24,18 @@ class Sight(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('places:detail', args=[self.id])
+
 
 class Image(models.Model):
     def image_directory_path(self, filename):
         return '{0}/{1}'.format(
-            self.sight.placeId,
+            self.place.place_en,
             filename)
 
-    sight = models.ForeignKey(
-        Sight,
+    place = models.ForeignKey(
+        Place,
         on_delete=models.CASCADE,
         verbose_name='экскурсия',
         related_name='images'
@@ -42,11 +45,11 @@ class Image(models.Model):
     )
     upload = models.ImageField(
         upload_to=image_directory_path,
-        verbose_name='загрука фото'
+        verbose_name='загрузка фото'
         )
     class Meta:
         verbose_name = 'фото'
         verbose_name_plural = 'фото'
 
     def __str__(self):
-        return f'{self.order_id} {self.sight.title}'
+        return f'{self.order_id} {self.place.title}'

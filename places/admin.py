@@ -1,14 +1,14 @@
 from django.contrib import admin
-from .models import Sight, Image
+from .models import Place, Image
 
 
 class ImageInline(admin.TabularInline):
     model = Image
-    extra = 1
+    extra = 0
 
 
-@admin.register(Sight)
-class SightAdmin(admin.ModelAdmin):
+@admin.register(Place)
+class PlaceAdmin(admin.ModelAdmin):
     inlines = [
         ImageInline
     ]
@@ -16,10 +16,10 @@ class SightAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
             'fields': (
-                ('title', 'place_id'),
+                ('title', 'place_en'),
                 'description_short',
                 'description_long',
-                ('longtitude', 'latitude'),
+                ('latitude', 'longtitude'),
             )
         }),
     )
@@ -28,4 +28,4 @@ class SightAdmin(admin.ModelAdmin):
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_filter = ('sight__place_id', )
+    list_filter = ('place__place_en', )
