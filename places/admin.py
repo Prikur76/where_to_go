@@ -1,13 +1,16 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from adminsortable2.admin import SortableTabularInline, SortableAdminMixin
+
 from .models import Place, Image
 
 
-class ImageInline(admin.TabularInline):
+class ImageTabularInline(SortableTabularInline):
     model = Image
     extra = 0
-    fields = ['upload', 'get_preview', 'order_id']
+    fields = ['upload', 'get_preview']
     readonly_fields = ['get_preview']
+    raw_id_fields = ['place']
 
     def get_preview(self, obj):
         if obj.upload:
@@ -17,9 +20,9 @@ class ImageInline(admin.TabularInline):
 
 
 @admin.register(Place)
-class PlaceAdmin(admin.ModelAdmin):
+class PlaceAdmin(SortableAdminMixin,admin.ModelAdmin):
     inlines = [
-        ImageInline
+        ImageTabularInline
     ]
     list_display = ('title', )
     fieldsets = (
@@ -37,7 +40,10 @@ class PlaceAdmin(admin.ModelAdmin):
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
+    fields = ['place', 'upload', 'order_id']
+    list_display = ['id', 'place', 'preview', 'order_id' ]
     list_filter = ('place__place_en', )
+    list_display_links = ['id', 'preview']
     readonly_fields = ['preview',]
 
     def preview(self, obj):

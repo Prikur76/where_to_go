@@ -18,6 +18,7 @@ class Place(models.Model):
     longtitude = models.FloatField(verbose_name='Долгота')
 
     class Meta:
+        ordering = ['title']
         verbose_name = 'экскурсия'
         verbose_name_plural = 'экскурсии'
 
@@ -41,13 +42,17 @@ class Image(models.Model):
         related_name='images'
     )
     order_id = models.PositiveIntegerField(
-        verbose_name='порядок'
+        verbose_name='порядок',
+        default=0,
+        blank=False,
+        null=False
     )
     upload = models.ImageField(
         upload_to=image_directory_path,
         verbose_name='загрузка фото'
         )
     class Meta:
+        ordering = ['order_id']
         verbose_name = 'фото'
         verbose_name_plural = 'фото'
 
