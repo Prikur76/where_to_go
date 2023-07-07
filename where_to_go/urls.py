@@ -24,6 +24,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('places.urls', namespace='places')),
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 if settings.DEBUG:
