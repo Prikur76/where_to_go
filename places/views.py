@@ -1,7 +1,9 @@
 from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
-from .models import Place, Image
+
+from .models import Place
+from .services import get_short_title
 
 
 def index(request):
@@ -13,15 +15,12 @@ def index(request):
                 'type': 'Feature',
                 'geometry': {
                     'type': 'Point',
-                    'coordinates': [
-                        place.longtitude,
-                        place.latitude
-                    ]
+                    'coordinates': [place.longtitude, place.latitude]
                 },
                 'properties': {
-                    'title': place.title,
+                    'title': get_short_title(place.title),
                     'placeId': place.place_en,
-                    'detailsUrl': f'./places/static/{place.place_en}.json'
+                    'detailsUrl': f'/json/{place.id}/',
                 }
             }
         )
@@ -44,7 +43,7 @@ def place_detail(request, id):
 
 def get_json(request, id):
     place = get_object_or_404(Place, pk=id)
-    content = {
+    place_detail = {
         'title': place.title,
         'imgs': [(settings.MEDIA_URL + i['upload'])
                  for i in list(place.images.all().values())],
@@ -55,7 +54,7 @@ def get_json(request, id):
             'lat': place.latitude
         }
     }
-    return JsonResponse(content,
+    return JsonResponse(place_detail,
                         safe=False,
                         json_dumps_params={
                             'ensure_ascii': False,
