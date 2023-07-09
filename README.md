@@ -3,7 +3,7 @@
 На сайте можно найти самые интересные места для различных видов активного отдыха 
 с подробными описаниями и комментариями. Авторский проект Артёма.
 
-![Демо](https://dvmn.org/media/lessons/ezgif.com-gif-maker_4nWhtfQ.gif)
+![Демо](https://github.com/devmanorg/where-to-go-frontend/blob/master/.gitbook/assets/site.png)
 
 ## Запуск
 
