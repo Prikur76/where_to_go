@@ -16,9 +16,15 @@ class Place(models.Model):
     description_long = HTMLField(verbose_name='описание')
     latitude = models.FloatField(verbose_name='Широта')
     longtitude = models.FloatField(verbose_name='Долгота')
+    my_order = models.PositiveIntegerField(
+        verbose_name='порядок',
+        default=0,
+        blank=False,
+        null=False
+    )
 
     class Meta:
-        ordering = ['title']
+        ordering = ['my_order']
         verbose_name = 'экскурсия'
         verbose_name_plural = 'экскурсии'
 

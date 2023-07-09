@@ -20,11 +20,14 @@ class ImageTabularInline(SortableTabularInline):
 
 
 @admin.register(Place)
-class PlaceAdmin(SortableAdminMixin,admin.ModelAdmin):
+class PlaceAdmin(SortableAdminMixin, admin.ModelAdmin):
     inlines = [
         ImageTabularInline
     ]
-    list_display = ('title', )
+    list_display = ['title', 'place_en', 'latitude', 'longtitude']
+    search_fields = ['title',]
+    list_filter = ('place_en', )
+    list_editable = ['latitude', 'longtitude']
     fieldsets = (
         (None, {
             'fields': (
@@ -40,7 +43,6 @@ class PlaceAdmin(SortableAdminMixin,admin.ModelAdmin):
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    fields = ['place', 'upload', 'order_id']
     list_display = ['id', 'place', 'preview', 'order_id' ]
     list_filter = ('place__place_en', )
     list_display_links = ['id', 'preview']
