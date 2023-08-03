@@ -1,8 +1,13 @@
-from django.contrib import admin
-from django.utils.safestring import mark_safe
 from adminsortable2.admin import SortableTabularInline, SortableAdminMixin
+from django.contrib import admin
+from django.contrib.admin import AdminSite
+from django.utils.safestring import mark_safe
 
 from .models import Place, Image
+
+
+class ManagerAdminSite(AdminSite):
+    site_header = 'Manager admin'
 
 
 class ImageTabularInline(SortableTabularInline):
@@ -19,19 +24,19 @@ class ImageTabularInline(SortableTabularInline):
     get_preview.short_description = 'миниатюра'
 
 
-@admin.register(Place)
 class PlaceAdmin(SortableAdminMixin, admin.ModelAdmin):
     inlines = [
         ImageTabularInline
     ]
-    list_display = ['title', 'place_en', 'latitude', 'longtitude']
+    list_display = ['title', 'slug', 'latitude', 'longtitude']
     search_fields = ['title',]
-    list_filter = ('place_en', )
+    list_filter = ('slug', )
     list_editable = ['latitude', 'longtitude']
+    prepopulated_fields = {'slug': ('title',)}
     fieldsets = (
         (None, {
             'fields': (
-                ('title', 'place_en'),
+                ('title', 'slug'),
                 'description_short',
                 'description_long',
                 ('latitude', 'longtitude'),
@@ -41,10 +46,9 @@ class PlaceAdmin(SortableAdminMixin, admin.ModelAdmin):
     save_on_top = True
 
 
-@admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
     list_display = ['id', 'place', 'preview', 'order_id' ]
-    list_filter = ('place__place_en', )
+    list_filter = ('place__slug', )
     list_display_links = ['id', 'preview']
     readonly_fields = ['preview',]
 
@@ -53,3 +57,10 @@ class ImageAdmin(admin.ModelAdmin):
             return mark_safe('<img src="%s" width="200"/>' % obj.upload.url)
 
     preview.short_description = 'миниатюра'
+
+
+admin.site.register(Place, PlaceAdmin)
+admin.site.register(Image, ImageAdmin)
+
+manageradmin = ManagerAdminSite(name='manageradmin')
+manageradmin.register(Place, PlaceAdmin)

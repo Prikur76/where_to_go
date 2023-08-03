@@ -18,13 +18,13 @@ from django.conf.urls.static import static
 
 from django.contrib import admin
 from django.urls import path, include
-
+from places.admin import manageradmin
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('manager-admin/', manageradmin.urls),
     path('', include('places.urls', namespace='places')),
-    path('tinymce/', include('tinymce.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
