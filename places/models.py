@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.template.defaultfilters import slugify
 from tinymce.models import HTMLField
 
 
@@ -7,9 +8,10 @@ class Place(models.Model):
     title = models.CharField(
         max_length=255,
         verbose_name='название')
-    place_en = models.CharField(
-        max_length=255,
-        verbose_name='ID места'
+    slug = models.SlugField(
+        max_length=100,
+        verbose_name='ID места',
+        null=False, unique=True
     )
     description_short = models.TextField(
         verbose_name='краткое описание')
@@ -32,13 +34,19 @@ class Place(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('places:detail', args=[self.id])
+        return reverse('places:detail',
+                       args=[self.id])
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs)
 
 
 class Image(models.Model):
     def image_directory_path(self, filename):
         return '{0}/{1}'.format(
-            self.place.place_en,
+            self.place.slug,
             filename)
 
     place = models.ForeignKey(
@@ -56,7 +64,8 @@ class Image(models.Model):
     upload = models.ImageField(
         upload_to=image_directory_path,
         verbose_name='загрузка фото'
-        )
+    )
+
     class Meta:
         ordering = ['order_id']
         verbose_name = 'фото'
