@@ -19,7 +19,7 @@ def index(request):
                 },
                 'properties': {
                     'title': get_short_title(place.title),
-                    'placeId': place.place_en,
+                    'placeId': place.id,
                     'detailsUrl': f'/json/{place.id}/',
                 }
             }
