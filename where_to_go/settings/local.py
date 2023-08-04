@@ -10,7 +10,7 @@ env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=True)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.list('SECRET_KEY', 'REPLACE ME!')
