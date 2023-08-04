@@ -47,10 +47,10 @@ class PlaceAdmin(SortableAdminMixin, admin.ModelAdmin):
 
 
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ['id', 'place', 'preview', 'order_id' ]
+    list_display = ['id', 'place', 'preview', 'order_id']
     list_filter = ('place__slug', )
     list_display_links = ['id', 'preview']
-    readonly_fields = ['preview',]
+    readonly_fields = ['preview', ]
 
     def preview(self, obj):
         if obj.upload:

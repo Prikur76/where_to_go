@@ -28,7 +28,8 @@ class Command(BaseCommand):
         if status:
             self.stdout.write(
                 self.style.SUCCESS(
-                    f'Экскурсия {created_place.title} c ID {created_place.id} создана!'
+                    f'Экскурсия {created_place.title} c ID '
+                    f'{created_place.id} создана!'
                 )
             )
 

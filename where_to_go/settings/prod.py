@@ -1,4 +1,3 @@
-from pathlib import Path
 from environs import Env
 
 from .base import *
