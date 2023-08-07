@@ -7,3 +7,4 @@ django-tinymce==3.6.1
 requests==2.31.0
 python-slugify==8.0.1
 flake8==6.1.0
+dj-database-url==2.0.0
