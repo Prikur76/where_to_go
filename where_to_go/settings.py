@@ -12,13 +12,28 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 from pathlib import Path
+from environs import Env
+import dj_database_url
 
+from .base import *
+
+
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
+DEBUG = env.bool('DEBUG', default=False)
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = env.str('SECRET_KEY', 'REPLACE ME!')
+
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', ['localhost', '127.0.0.1'])
+
+DATABASES['default'] = dj_database_url.config()
 
 # Application definition
 INSTALLED_APPS = [
@@ -106,3 +121,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+STATICFILES_DIRS = []
+
+CSRF_COOKIE_SECURE = env.bool('CSRF_COOKIE_SECURE', default=False)
+SESSION_COOKIE_SECURE = env.bool('SESSION_COOKIE_SECURE', default=False)
+SECURE_HSTS_SECONDS = env.int('SECURE_HSTS_SECONDS', default=3600)
+SECURE_HSTS_PRELOAD = env.bool('SECURE_HSTS_PRELOAD', default=False)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool('SECURE_HSTS_INCLUDE_SUBDOMAINS', default=False)
+SECURE_SSL_REDIRECT = env.bool('SECURE_SSL_REDIRECT', default=False)
