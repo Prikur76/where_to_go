@@ -34,13 +34,6 @@ def index(request):
                   context={'value': context})
 
 
-def place_detail(request, id):
-    place = get_object_or_404(Place, pk=id)
-    return render(request,
-                  'places/place/detail.html',
-                  {'place': place})
-
-
 def get_json(request, id):
     place = get_object_or_404(Place, pk=id)
     place_detail = {
