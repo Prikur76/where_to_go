@@ -18,10 +18,20 @@
 
 Часть настроек проекта берётся из переменных окружения. Чтобы их определить, создайте файл `.env` рядом с `manage.py` и запишите туда данные в таком формате: `ПЕРЕМЕННАЯ=значение`.
 
-Доступны 3 переменные:
+Доступны 4 переменных:
 - `DEBUG` — дебаг-режим. Поставьте True, чтобы увидеть отладочную информацию в случае ошибки.
 - `SECRET_KEY` — секретный ключ проекта
-- `ALLOWED_HOSTS` — см [документацию Django](https://docs.djangoproject.com/en/3.1/ref/settings/#allowed-hosts).
+- `ALLOWED_HOSTS` — см. [документацию Django](https://docs.djangoproject.com/en/4.2/ref/settings/#allowed-hosts).
+- `DATABASE_URL` — настройки базы данных, см. [документацию](https://github.com/jazzband/dj-database-url).
+
+Дополнительные настройки для запуска в "боевом режиме" (см. [документацию Django](https://docs.djangoproject.com/en/4.2/ref/settings/)):
+- `CSRF_COOKIE_SECURE`;
+- `SESSION_COOKIE_SECURE`;
+- `SECURE_HSTS_SECONDS`;
+- `SECURE_HSTS_PRELOAD`;
+- `SECURE_HSTS_INCLUDE_SUBDOMAINS`;
+- `SECURE_SSL_REDIRECT`.
+
 
 ## Управление локациями
 
