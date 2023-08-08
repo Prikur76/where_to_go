@@ -40,14 +40,9 @@
 
 ### Как загрузить локации на сайт в ручном режиме
 
-В командной строке введите 
+Для загрузки локации в командной строке введите
 ```bash
-$ python3 manage.py load_place <ссылка на файл> --settings=where_to_go.settings.prod
-```
-
-Если не хотите постоянно выбирать параметр `--settings`, то в командную строку введите:
-```bash
-export DJANGO_SETTINGS_MODULE=where_to_go.settings.prod
+$ python3 manage.py load_place <ссылка на файл>
 ```
 
 ## Цели проекта
