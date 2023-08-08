@@ -3,7 +3,6 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 
 from .models import Place
-from .services import get_short_title
 
 
 def index(request):
@@ -18,7 +17,7 @@ def index(request):
                     'coordinates': [place.longtitude, place.latitude]
                 },
                 'properties': {
-                    'title': get_short_title(place.title),
+                    'title': place.short_title,
                     'placeId': place.id,
                     'detailsUrl': f'/json/{place.id}/',
                 }
@@ -38,7 +37,7 @@ def get_json(request, id):
     place = get_object_or_404(Place, pk=id)
     place_detail = {
         'title': place.title,
-        'imgs': [(settings.MEDIA_URL + i['upload'])
+        'imgs': [(settings.MEDIA_URL + i['photo'])
                  for i in list(place.images.all().values())],
         'description_short': place.description_short,
         'description_long': place.description_long,
