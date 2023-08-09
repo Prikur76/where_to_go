@@ -12,27 +12,17 @@ def get_image_directory_path(instance, filename):
 
 class Place(models.Model):
     title = models.CharField(
-        max_length=255,
-        verbose_name='название')
+        max_length=255, verbose_name='название')
     slug = models.SlugField(
-        max_length=100,
-        verbose_name='slug',
-        unique=True)
+        max_length=100, verbose_name='slug', unique=True)
     description_short = models.TextField(
-        verbose_name='краткое описание',
-        blank=True, default='')
+        verbose_name='краткое описание', blank=True)
     description_long = HTMLField(
-        verbose_name='описание',
-        blank=True, default='')
-    latitude = models.FloatField(
-        verbose_name='Широта',
-        blank=True, default=0.0)
-    longtitude = models.FloatField(
-        verbose_name='Долгота',
-        blank=True, default=0.0)
+        verbose_name='описание', blank=True)
+    latitude = models.FloatField(verbose_name='Широта')
+    longtitude = models.FloatField(verbose_name='Долгота')
     order = models.PositiveIntegerField(
-        verbose_name='порядок',
-        blank=True, default=0)
+        verbose_name='порядок', blank=True, default=0)
 
     class Meta:
         ordering = ['order']
@@ -62,8 +52,7 @@ class Image(models.Model):
         verbose_name='экскурсия',
         related_name='images')
     order = models.PositiveIntegerField(
-        verbose_name='порядковый номер',
-        blank=True, default=0)
+        verbose_name='порядковый номер', blank=True, default=0)
     photo = models.ImageField(
         verbose_name='фото',
         upload_to=get_image_directory_path)
