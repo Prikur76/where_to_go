@@ -20,15 +20,19 @@ class Place(models.Model):
         unique=True)
     description_short = models.TextField(
         verbose_name='краткое описание',
-        null=True, blank=True)
+        blank=True, default='')
     description_long = HTMLField(
         verbose_name='описание',
-        null=True, blank=True)
-    latitude = models.FloatField(verbose_name='Широта')
-    longtitude = models.FloatField(verbose_name='Долгота')
+        blank=True, default='')
+    latitude = models.FloatField(
+        verbose_name='Широта',
+        blank=True, default=0.0)
+    longtitude = models.FloatField(
+        verbose_name='Долгота',
+        blank=True, default=0.0)
     order = models.PositiveIntegerField(
         verbose_name='порядок',
-        blank=True, null=True)
+        blank=True, default=0)
 
     class Meta:
         ordering = ['order']
@@ -59,7 +63,7 @@ class Image(models.Model):
         related_name='images')
     order = models.PositiveIntegerField(
         verbose_name='порядковый номер',
-        blank=True, null=True)
+        blank=True, default=0)
     photo = models.ImageField(
         verbose_name='фото',
         upload_to=get_image_directory_path)
