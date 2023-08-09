@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('order', models.PositiveIntegerField(blank=True, null=True, verbose_name='порядковый номер')),
-                ('photo', models.ImageField(upload_to=places.models.image_directory_path, verbose_name='фото')),
+                ('photo', models.ImageField(upload_to=places.models.get_image_directory_path, verbose_name='фото')),
                 ('place', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='images', to='places.place', verbose_name='экскурсия')),
             ],
             options={
