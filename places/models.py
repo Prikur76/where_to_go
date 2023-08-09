@@ -16,7 +16,7 @@ class Place(models.Model):
         verbose_name='название')
     slug = models.SlugField(
         max_length=100,
-        verbose_name='ID места',
+        verbose_name='slug',
         unique=True)
     description_short = models.TextField(
         verbose_name='краткое описание',
