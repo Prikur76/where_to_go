@@ -5,7 +5,7 @@ from django.urls import reverse
 from tinymce.models import HTMLField
 
 
-def image_directory_path(instance, filename):
+def get_image_directory_path(instance, filename):
     slug = instance.place.slug
     return '{0}/{1}'.format(slug, filename)
 
@@ -62,7 +62,7 @@ class Image(models.Model):
         blank=True, null=True)
     photo = models.ImageField(
         verbose_name='фото',
-        upload_to=image_directory_path)
+        upload_to=get_image_directory_path)
 
     class Meta:
         ordering = ['order']
